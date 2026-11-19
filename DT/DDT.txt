@@ -1,0 +1,30 @@
+       web development tools notes
+
+
+ Heading:CMD
+CMD is commad line interface in windows used to communicate with computer by typing commads it allows used to create,open, copy , delete and mange files and folders. 
+
+ Heading:DIR
+DIR displays the list of files and folders available in the current directly.
+
+ Heading:CD
+CD means change directly it is used to move from one folder to another.
+
+ Heading:CD ..
+go back to to one folder.
+
+ Heading:MKdir
+MKdir means make a directly .It is used to create a new folder.
+
+ Heading:File creation in a folder 
+You can create a text file using the Type commad 
+SYNTAX:Type NUII>Filename.text
+
+ Heading:RMDIR
+Means remove directly . it is used to delete an empty folder
+
+ Heading:Copy
+It is used to copy a file from location to another
+
+  Heading:DEL
+Means delete it is used to delete a file  

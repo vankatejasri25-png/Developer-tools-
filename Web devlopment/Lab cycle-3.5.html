@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Gradients</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, aqua , grey);
+            text-align: center;
+        }
+        header {
+            background: linear-gradient(135deg, grey,purple);
+            color: white;
+            padding: 25px;
+        }
+        nav {
+            background:darkkhaki;
+            padding: 15px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+        .container {
+            padding: 30px;
+        }
+        .card {
+            background: linear-gradient(to bottom right, whitesmoke, white);
+            padding: 25px;
+            margin: 20px auto;
+            width: 70%;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px darkgray;
+        }
+        .button {
+            background: linear-gradient(to right, brown, magenta);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        footer {
+            background: linear-gradient(to right, dark grey, purple);
+            color: white;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Website</h1>
+        <p>Learn CSS Gradients</p>
+    </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <h2>Linear Gradient</h2>
+            <p>Creates a smooth color transition in a straight line.</p>
+            <button class="button">Learn More</button>
+        </div>
+        <div class="card">
+            <h2>Radial Gradient</h2>
+            <div style="height:100px; background:radial-gradient(circle, orange , pink ); border-radius:10px;"></div>
+            <p>Colors spread outward from a central point.</p>
+        </div>
+        <div class="card">
+            <h2>Conic Gradient</h2>
+            <div style="height:100px; background:conic-gradient(skyblue, blue, Teal,greenn); border-radius:10px;"></div>
+            <p>Colors rotate around a central point.</p>
+        </div>
+    </div>
+    <footer>
+        <p>Created using HTML and CSS Gradients</p>
+    </footer>
+</body>
+</html> ---==

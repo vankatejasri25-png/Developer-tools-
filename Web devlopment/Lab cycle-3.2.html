@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multimedia Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color:wheat;
+            color:grey; }
+        header {
+            background-color:darkgray;
+            color: white;
+            text-align: center;
+            padding: 25px; }
+        nav {
+            background-color:grey;
+            text-align: center;
+            padding: 15px;}
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;}
+        nav a:hover {
+            color:yellowgreen;}
+        main {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto; }
+        section {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px yellow;}
+        h2 {
+            margin-bottom: 15px;
+            color:gray; }
+        article {
+            text-align: center; }
+        audio {
+            width: 80%;
+            margin-top: 10px;}
+        video {
+            width: 80%;
+            max-width: 600px;
+            margin-top: 10px;
+            border-radius: 8px;}
+        aside {
+            background-color:whitesmoke;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid yellow;
+            border-radius: 5px;}
+        footer {
+            background-color:grey;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Multimedia Website</h1>
+        <p>Semantic HTML5 with Audio and Video</p>
+    </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#audio">Audio</a>
+        <a href="#video">Video</a>
+        <a href="#about">About</a>
+    </nav>
+    <main>
+        <section id="audio">
+            <h2>🎵 Audio Section</h2>
+            <article>
+                <h3>My Favorite Song</h3>
+                <audio controls>
+                    <source src="c:\Users\TEJA SRI\Downloads\alex-morgan-flute-meadow-breeze-melody-578506.mp3" type="audio/mpeg">
+                </audio>
+            </article>
+        </section>
+        <section id="video">
+            <h2>🎬 Video Section</h2>
+            <article>
+                <h3>Educational Video</h3>
+                <video controls>
+                    <source src="c:\Users\TEJA SRI\OneDrive\Desktop\Gen Ai\Teacher_explaining_AI_to_students_202608171037 - Copy.mp4" type="video/mp4">
+
+                </video>
+            </article>
+        </section>
+        <aside id="about">
+            <h3>About Multimedia</h3>
+            <p>
+                HTML5 provides audio and video elements that allow
+                multimedia content to be added directly to webpages.
+            </p>
+        </aside>
+    </main>
+    <footer>
+        <p>2026 My Multimedia Website</p>
+    </footer>
+</body>
+</html>

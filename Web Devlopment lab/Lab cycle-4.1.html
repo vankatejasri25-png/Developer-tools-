@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Selectors Experiment</title>
+
+    <style>
+        /* Universal Selector */
+        * {
+            font-family: Arial;
+            box-sizing: border-box;
+        }
+
+        /* Element Selector */
+        body {
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        /* ID Selector */
+        #main-heading {
+            color: darkblue;
+            text-align: center;
+        }
+
+        /* Class Selector */
+        .box {
+            background-color: white;
+            padding: 15px;
+            margin: 10px;
+            border: 2px solid gray;
+        }
+
+        /* Grouping Selector */
+        h2, h3 {
+            color: darkgreen;
+        }
+
+        /* Descendant Selector */
+        .container p {
+            color: blue;
+        }
+
+        /* Child Selector */
+        .container > h3 {
+            background-color: lightyellow;
+        }
+
+        /* Adjacent Sibling Selector */
+        h2 + p {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* General Sibling Selector */
+        h2 ~ h4 {
+            color: purple;
+        }
+
+        /* Hover Pseudo-class */
+        button:hover {
+            background-color: green;
+            color: white;
+        }
+
+        /* Active Pseudo-class */
+        button:active {
+            background-color: orange;
+        }
+
+        /* Focus Pseudo-class */
+        input:focus {
+            border: 3px solid blue;
+            outline: none;
+        }
+
+        /* First Child */
+        li:first-child {
+            color: red;
+        }
+
+        /* Last Child */
+        li:last-child {
+            color: green;
+        }
+
+        /* Nth Child */
+        li:nth-child(2) {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="main-heading">CSS Selectors Demonstration</h1>
+
+    <div class="box container">
+
+        <h2>CSS Combinators</h2>
+
+        <p>This is an adjacent sibling paragraph.</p>
+
+        <h3>Direct Child Heading</h3>
+
+        <div>
+            <p>This is a descendant paragraph.</p>
+        </div>
+
+        <h4>General sibling heading 1</h4>
+        <h4>General sibling heading 2</h4>
+
+    </div>
+
+    <div class="box">
+        <h2>Pseudo-class Demonstration</h2>
+
+        <button>Move Mouse Here</button>
+
+        <br><br>
+
+        <input type="text"
+               placeholder="Click here to enter your name">
+
+        <h3>Student List</h3>
+
+        <ul>
+            <li>Prakash</li>
+            <li>Ravi</li>
+            <li>Suresh</li>
+            <li>Ram</li>
+        </ul>
+    </div>
+
+</body>
+</html>

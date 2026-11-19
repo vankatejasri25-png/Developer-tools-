@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>CSS</title>
+<style>
+    .one{
+        text-align: center;
+        color: brown;
+    }
+    p{
+        text-align: left;
+        color:yellowgreen;
+    }
+    h2{
+       color: blue;
+    }
+</style>
+<link rel="external.css"href=link/my.css>
+<body>
+    <h1>CSS - Caascadeing style sheet </h1>
+    <p class="one">CSS describes how html elements are to be displaced on screen </p>
+    <p style="text-align: center;">THERE ARE THREE TYPES OF CSS</P>
+<h2>Inline css<br>
+Internal css<br>
+External css</h2>

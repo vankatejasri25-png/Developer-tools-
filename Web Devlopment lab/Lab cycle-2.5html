@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mobile First Design</title>
+
+    <style>
+        /* Mobile-first styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color:purple;
+            color:orangered;
+            text-align: center;
+            padding: 15px;
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            background-color: plum;
+        }
+
+        nav a {
+            color:bisque;
+            text-decoration: none;
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid paleturquoise;
+        }
+
+        .container {
+            padding: 15px;
+        }
+
+        .card {
+            background-color: #f2f2f2;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        /* Tablet and desktop */
+        @media (min-width: 768px) {
+
+            nav {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            nav a {
+                border: none;
+                padding: 15px 30px;
+            }
+
+            .container {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+            }
+
+            .card {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Tena Food Paradise </h1>
+        <p>Delicious Food</p>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Menu</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Pizza</h2>
+            <p>Cheesy and delicious pizza.</p>
+            <button>Order Now</button>
+        </div>
+
+        <div class="card">
+            <h2>Momos</h2>
+            <p>Fresh and tasty.</p>
+            <button>Order Now</button>
+        </div>
+
+        <div class="card">
+            <h2>Biryani</h2>
+            <p>Spicy and flavorful biryani.</p>
+            <button>Order Now</button>
+        </div>\
+        
+
+    </div>
+
+</body>
+</html>

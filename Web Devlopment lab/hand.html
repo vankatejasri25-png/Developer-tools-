@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hand Gesture Emoji Recognition</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #090909, #300000);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ff3333;
+            margin: 15px;
+            font-size: 32px;
+            text-shadow: 0 0 15px red;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .camera-box {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border: 4px solid red;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 0 25px red;
+            background: #111;
+        }
+
+        video {
+            display: none;
+        }
+
+        canvas {
+            width: 100%;
+            display: block;
+            transform: scaleX(-1);
+        }
+
+        .emoji-box {
+            background: #1c1c1c;
+            border: 2px solid #ff3333;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0 0 15px #ff0000;
+        }
+
+        #emoji {
+            font-size: 85px;
+            margin: 10px;
+        }
+
+        #gesture {
+            color: #ff4444;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        #count {
+            color: #fff;
+            font-size: 19px;
+            margin-top: 10px;
+        }
+
+        button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        button:hover {
+            background: #ff5555;
+            box-shadow: 0 0 15px red;
+        }
+
+        .instructions {
+            margin: 20px auto;
+            line-height: 2;
+            color: #ddd;
+        }
+
+        #status {
+            color: #ffaaaa;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🖐️ HAND GESTURE RECOGNITION</h1>
+
+        <p>Show your fingers in front of the camera!</p>
+
+        <div class="camera-box">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="canvas" width="640" height="480"></canvas>
+        </div>
+
+        <div class="emoji-box">
+            <div id="emoji">👋</div>
+            <div id="gesture">Waiting for your hand...</div>
+            <div id="count">Fingers: 0</div>
+        </div>
+
+        <button onclick="startCamera()">📷 Start Camera</button>
+        <button onclick="stopCamera()">⏹ Stop Camera</button>
+
+        <p id="status">Camera is not started.</p>
+
+        <div class="instructions">
+            <h3>🎮 Try These Gestures</h3>
+            ☝️ Index Finger - 😊 Smile<br>
+            👍 Thumb Up - Thumbs Up<br>
+            ✌️ Two Fingers - Victory<br>
+            🤟 Three Fingers - Love<br>
+            🖐️ Four Fingers - Hello<br>
+            👋 Five Fingers - Welcome<br>
+            ✊ Closed Fist - Strong
+        </div>
+
+    </div>
+
+    <script>
+
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        let camera = null;
+        let hands = null;
+        let cameraStream = null;
+
+        function showEmoji(emoji, name, count) {
+            document.getElementById("emoji").innerText = emoji;
+            document.getElementById("gesture").innerText = name;
+            document.getElementById("count").innerText =
+                "Fingers: " + count;
+        }
+
+        function getGesture(lm, handedness) {
+
+            const thumb =
+                handedness === "Right"
+                ? lm[4].x < lm[3].x
+                : lm[4].x > lm[3].x;
+
+            const index = lm[8].y < lm[6].y;
+            const middle = lm[12].y < lm[10].y;
+            const ring = lm[16].y < lm[14].y;
+            const pinky = lm[20].y < lm[18].y;
+
+            const fingers = [
+                thumb, index, middle, ring, pinky
+            ];
+
+            const count = fingers.filter(Boolean).length;
+
+            if (
+                thumb &&
+                lm[4].y < lm[3].y &&
+                !index && !middle && !ring && !pinky
+            ) {
+                return ["👍", "THUMBS UP!", count];
+            }
+
+            if (count === 0) {
+                return ["✊", "CLOSED FIST!", count];
+            }
+
+            if (count === 5) {
+                return ["👋", "OPEN HAND - HELLO!", count];
+            }
+
+            if (count === 1 && index) {
+                return ["😊", "INDEX FINGER - SMILE!", count];
+            }
+
+            if (count === 2 && index && middle) {
+                return ["✌️", "VICTORY SIGN!", count];
+            }
+
+            if (count === 3) {
+                return ["🤟", "THREE FINGERS!", count];
+            }
+
+            if (count === 4) {
+                return ["🖐️", "FOUR FINGERS!", count];
+            }
+
+            return ["🤚", "HAND GESTURE DETECTED", count];
+        }
+
+        async function startCamera() {
+
+            if (cameraStream) return;
+
+            document.getElementById("status").innerText =
+                "Starting camera...";
+
+            try {
+
+                cameraStream =
+                    await navigator.mediaDevices.getUserMedia({
+                        video: {
+                            width: 640,
+                            height: 480
+                        }
+                    });
+
+                video.srcObject = cameraStream;
+
+                await video.play();
+
+                hands = new Hands({
+                    locateFile: (file) =>
+                        "https://cdn.jsdelivr.net/npm/@mediapipe/hands/" + file
+                });
+
+                hands.setOptions({
+                    maxNumHands: 1,
+                    modelComplexity: 1,
+                    minDetectionConfidence: 0.7,
+                    minTrackingConfidence: 0.7
+                });
+
+                hands.onResults(onResults);
+
+                camera = new Camera(video, {
+                    onFrame: async () => {
+                        await hands.send({ image: video });
+                    },
+                    width: 640,
+                    height: 480
+                });
+
+                camera.start();
+
+                document.getElementById("status").innerText =
+                    "🟢 Camera is running! Show your hand.";
+
+            } catch (error) {
+
+                document.getElementById("status").innerText =
+                    "Camera error: " + error.message;
+
+            }
+        }
+
+        function onResults(results) {
+
+            ctx.save();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.drawImage(
+                results.image,
+                0, 0,
+                canvas.width,
+                canvas.height
+            );
+
+            if (
+                results.multiHandLandmarks &&
+                results.multiHandLandmarks.length > 0
+            ) {
+
+                const landmarks = results.multiHandLandmarks[0];
+
+                drawConnectors(
+                    ctx,
+                    landmarks,
+                    HAND_CONNECTIONS,
+                    {
+                        color: "#00ff66",
+                        lineWidth: 4
+                    }
+                );
+
+                drawLandmarks(
+                    ctx,
+                    landmarks,
+                    {
+                        color: "#ff2222",
+                        lineWidth: 2,
+                        radius: 4
+                    }
+                );
+
+                const handedness =
+                    results.multiHandedness[0].label;
+
+                const result = getGesture(
+                    landmarks,
+                    handedness
+                );
+
+                showEmoji(
+                    result[0],
+                    result[1],
+                    result[2]
+                );
+
+            } else {
+
+                showEmoji("👀", "Show your hand!", 0);
+
+            }
+
+            ctx.restore();
+        }
+
+        function stopCamera() {
+
+            if (camera) {
+                camera.stop();
+                camera = null;
+            }
+
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+                cameraStream = null;
+            }
+
+            video.srcObject = null;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            showEmoji("👋", "Camera Stopped!", 0);
+
+            document.getElementById("status").innerText =
+                "🔴 Camera is stopped.";
+        }
+
+    </script>
+
+</body>
+</html>
